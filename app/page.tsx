@@ -1,44 +1,10 @@
+import Hero from "@/components/Hero";
 import React from "react";
 
 const Home = () => {
   return (
-    <div>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
-      <h2>Home</h2>
+    <div className="p-12 py-14">
+      <Hero />
     </div>
   );
 };
