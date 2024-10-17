@@ -11,6 +11,26 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "light-blue-opacity": "rgba(173, 216, 230, 0.1)", // Light blue with 0.1 opacity
+      },
+      fontFamily: {
+        poppins: ["var(--font-poppins)"],
+      },
+      boxShadow: {
+        "light-blue": "0 8px 30px rgba(173, 216, 230, 0.12)",
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": {
+            opacity: 0,
+          },
+          "100%": {
+            opacity: 1,
+          },
+        },
+      },
+      animation: {
+        fadein: "fade-in 0.6s ease-in-out 0.25s 1 forwards",
       },
     },
   },
