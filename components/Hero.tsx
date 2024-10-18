@@ -28,7 +28,7 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % 3);
-    }, 8000); // 8000 milliseconds = 8 seconds
+    }, 5000); // 8000 milliseconds = 8 seconds
 
     return () => clearInterval(interval); // Clear interval on component unmount
   }, []);

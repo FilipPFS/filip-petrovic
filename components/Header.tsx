@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import MobileNav from "./MobileNav";
-import { FaBars, FaXmark } from "react-icons/fa6";
 
 const Header = () => {
   const [openMobile, setOpenMobile] = useState(false);
@@ -13,7 +12,7 @@ const Header = () => {
   return (
     <>
       <header className="sticky top-0 p-6 px-8 md:px-16 flex items-center justify-between h-[150px] z-50 bg-[#03030f] bg-opacity-15">
-        <Link href={"/"}>
+        <Link href={"/"} className="w-[120px]">
           <Image
             src={"/assets/images/logofp.webp"}
             width={65}
