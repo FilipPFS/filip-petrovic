@@ -4,6 +4,8 @@ import Header from "@/components/Header";
 import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,7 +29,10 @@ export default function RootLayout({
         <body className={poppins.variable}>
           <div className="min-h-screen flex flex-col text-white bg-[#060621]">
             <Header />
-            <main>{children}</main>
+            <main>
+              <ToastContainer />
+              {children}
+            </main>
             <Footer />
           </div>
         </body>

@@ -5,14 +5,29 @@ import { Button } from "./ui/moving-border";
 import { FaEnvelope, FaLocationDot, FaPhone } from "react-icons/fa6";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { createMessage } from "@/lib/actions/message.actions";
+import { useFormState } from "react-dom";
+import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
 
 const Contact = () => {
+  const [state, formAction] = useFormState(createMessage, {
+    submitted: false,
+  });
+
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in milliseconds
       once: true, // Whether animation should happen only once - while scrolling down
     });
   }, []);
+
+  useEffect(() => {
+    if (state.submitted) {
+      toast.success("Votre message a été envoyé.");
+      redirect("/");
+    }
+  }, [state]);
 
   return (
     <div id="contact" className="flex flex-col items-center gap-8">
@@ -65,18 +80,21 @@ const Contact = () => {
             duration={9000}
             className="p-6 w-[320px] lg:w-[400px] xl:w-[500px] border-[1px] border-opacity-10 border-blue-100"
           >
-            <form className="flex flex-col gap-4 w-full">
+            <form action={formAction} className="flex flex-col gap-4 w-full">
               <input
+                name="fullName"
                 className="input-field bg-transparent border-2 border-opacity-20 border-blue-100"
                 placeholder="Nom complet"
                 required
               />
               <input
+                name="email"
                 className="input-field bg-transparent border-2 border-opacity-20 border-blue-100"
                 placeholder="Email"
                 required
               />
               <textarea
+                name="content"
                 className="textarea-field h-40 bg-transparent border-2 border-opacity-20 border-blue-100"
                 placeholder="Votre message"
                 required
