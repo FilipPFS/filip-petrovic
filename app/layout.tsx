@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer";
+import AuthProvider from "@/components/AuthProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,14 +22,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={poppins.variable}>
-        <div className="min-h-screen flex flex-col text-white bg-[#060621]">
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </div>
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+        <body className={poppins.variable}>
+          <div className="min-h-screen flex flex-col text-white bg-[#060621]">
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

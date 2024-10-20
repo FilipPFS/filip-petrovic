@@ -38,4 +38,41 @@ main {
   .after-line {
     @apply after:border after:w-full after:absolute after:top-12 after:left-0
   }
+
+  .input-field {
+    @apply text-white p-2 px-4 rounded-md font-semibold
+  }
+
+  .textarea-field {
+    @apply text-white p-2 px-4 rounded-md font-semibold
+  }
+
+  .link-after {
+    @apply absolute w-full h-[2px] bottom-0 left-0 top-[28px] invisible scale-x-0 transition-all duration-300 ease-in-out group-hover:visible group-hover:scale-x-100
+  }
+
+  .link-hover {
+    @apply visible scale-x-100 bg-blue-500
+  }
+}
+
+@layer components {
+  .lightLiveLink::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    top: 28px;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .lightLiveLink:hover::after {
+    visibility: visible;
+    transform: scaleX(1);
+    background-color: azure;
+  }
 }
