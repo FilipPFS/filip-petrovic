@@ -98,3 +98,18 @@ export const getRecentProjects = async () => {
     console.error(error);
   }
 };
+
+export const getProjectById = async (id: string) => {
+  try {
+    await connectToDb();
+    const singleProject = await Project.findById(id);
+
+    if (!singleProject) {
+      throw new Error("Le projet n'a pas été trouvé.");
+    }
+
+    return JSON.parse(JSON.stringify(singleProject));
+  } catch (error) {
+    console.error(error);
+  }
+};
