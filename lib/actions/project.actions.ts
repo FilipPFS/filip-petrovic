@@ -6,6 +6,7 @@ import cloudinary from "../cloudinary";
 import Project from "../database/models/Project";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { GetAllProjectsParams } from "@/types";
 
 type ProjectObject = {
   title: string;
@@ -109,6 +110,49 @@ export const getProjectById = async (id: string) => {
     }
 
     return JSON.parse(JSON.stringify(singleProject));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getProjects = async ({
+  query,
+  limit = 6,
+  page,
+  category,
+}: GetAllProjectsParams) => {
+  try {
+    await connectToDb();
+
+    const queryConditions = query
+      ? {
+          $or: [
+            { title: { $regex: query, $options: "i" } },
+            { techTags: { $elemMatch: { $regex: query, $options: "i" } } },
+          ],
+        }
+      : {};
+
+    const categoryCondition =
+      category && category !== "Tous"
+        ? { techTags: { $elemMatch: { $regex: category, $options: "i" } } }
+        : {};
+
+    const conditions = {
+      $and: [queryConditions, categoryCondition],
+    };
+
+    const skipAmount = (Number(page) - 1) * limit;
+    const projects = await Project.find(conditions)
+      .sort({ createdDate: -1 })
+      .skip(skipAmount)
+      .limit(limit);
+    const projectsCount = await Project.countDocuments(conditions);
+
+    return {
+      data: JSON.parse(JSON.stringify(projects)),
+      totalPages: Math.ceil(projectsCount / limit),
+    };
   } catch (error) {
     console.error(error);
   }

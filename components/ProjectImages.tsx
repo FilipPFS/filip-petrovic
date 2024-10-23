@@ -19,8 +19,8 @@ const PropertyImages = ({ images }: Props) => {
                   <Item
                     original={image}
                     thumbnail={image}
-                    width="1000"
-                    height="600"
+                    width="1014"
+                    height="570"
                   >
                     {({ ref, open }) => (
                       <Image

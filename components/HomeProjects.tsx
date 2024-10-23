@@ -8,9 +8,9 @@ const HomeProjects = async () => {
   return (
     <div className="flex flex-col gap-8 items-center">
       <h1 className="text-3xl font-bold">Projets récents</h1>
-      <div className="flex flex-col gap-5 md:flex-row items-center md:justify-between">
+      <div className="flex flex-col gap-5 md:flex-row items-center md:items-start md:justify-between">
         {projects?.map((project) => (
-          <ProjectCard project={project} />
+          <ProjectCard project={project} page="home" />
         ))}
       </div>
     </div>

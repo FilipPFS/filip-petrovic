@@ -49,7 +49,7 @@ const Hero = () => {
         </p>
         <SocialButtons color="#191970" />
       </section>
-      <section className="flex flex-col items-center p-3 sm:p-0">
+      <section className="flex flex-col items-center p-6 sm:p-0">
         <Image
           src={"/assets/images/photo.webp"}
           alt="personal photo"

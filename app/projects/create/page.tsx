@@ -31,13 +31,13 @@ const CreateProject = () => {
         <section className="flex flex-col md:flex-row gap-5 items-center justify-between">
           <textarea
             placeholder="Description du projet"
-            className=" bg-blue-950 textarea-field w-full md:w-[48%]"
+            className=" bg-blue-950 textarea-field w-full h-[200px] md:w-[48%]"
             name="description"
             required
           />
           <textarea
             placeholder="Technologies utilisés"
-            className=" bg-blue-950 textarea-field w-full md:w-[48%]"
+            className=" bg-blue-950 textarea-field w-full h-[200px] md:w-[48%]"
             name="techList"
             required
           />
