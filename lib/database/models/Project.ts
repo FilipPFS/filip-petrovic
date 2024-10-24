@@ -1,6 +1,18 @@
-import { model, models, Schema, Types } from "mongoose";
+import { Document, model, models, Schema, Types } from "mongoose";
 
 export interface IProject {
+  _id: string;
+  owner: Types.ObjectId;
+  title: string;
+  description: string;
+  liveLink?: string;
+  githubLink?: string;
+  createdDate?: Date;
+  techTags?: string[];
+  images?: string[];
+}
+
+export interface IMongooseProject extends Document {
   _id: string;
   owner: Types.ObjectId;
   title: string;

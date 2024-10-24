@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import connectToDb from "../database";
 import Message from "../database/models/Message";
 
@@ -46,5 +47,25 @@ export const createMessage = async (
   } catch (error) {
     console.error("Error in createMessage:", error);
     return { submitted: false };
+  }
+};
+
+export const getMessages = async () => {
+  try {
+    const messages = await Message.find();
+
+    return JSON.parse(JSON.stringify(messages));
+  } catch (error) {}
+};
+
+export const deleteMessage = async (formData: FormData) => {
+  try {
+    const messageId = formData.get("messageId");
+
+    const messages = await Message.findByIdAndDelete(messageId);
+
+    revalidatePath("/messgaes", "layout");
+  } catch (error) {
+    console.error(error);
   }
 };

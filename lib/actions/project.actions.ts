@@ -3,12 +3,16 @@
 import { getSessionUser } from "@/utils/getSessionUser";
 import connectToDb from "../database";
 import cloudinary from "../cloudinary";
-import Project from "../database/models/Project";
+import Project, {
+  IMongooseProject,
+  IProject,
+} from "../database/models/Project";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { GetAllProjectsParams } from "@/types";
 
 type ProjectObject = {
+  owner: string;
   title: string;
   description: string;
   liveLink: string;
@@ -16,6 +20,17 @@ type ProjectObject = {
   createdDate: Date;
   techTags: string[];
   images?: string[];
+};
+
+export const deleteImageFromCloudinary = async (coverImgUrl: string) => {
+  const publicId = coverImgUrl.split("/").slice(-2).join("/").split(".")[0];
+
+  try {
+    const result = await cloudinary.uploader.destroy(publicId);
+    console.log("Cloudinary image deletion result:", result);
+  } catch (error) {
+    console.error("Error deleting image from Cloudinary:", error);
+  }
 };
 
 export const addNewProject = async (formData: FormData) => {
@@ -44,6 +59,7 @@ export const addNewProject = async (formData: FormData) => {
     const techTags = techList.split("/").map((tech) => tech.trim());
 
     const projectObject: ProjectObject = {
+      owner: owner.userId,
       title,
       description,
       liveLink,
@@ -156,4 +172,98 @@ export const getProjects = async ({
   } catch (error) {
     console.error(error);
   }
+};
+
+export const updateProject = async (formData: FormData) => {
+  try {
+    await connectToDb();
+
+    const projectId = formData.get("projectId");
+
+    const project: IMongooseProject | null = await Project.findById(projectId);
+    const owner = await getSessionUser();
+
+    if (!project) {
+      throw new Error("No project found.");
+    }
+
+    if (owner?.userId.toString() !== project.owner.toString()) {
+      throw new Error("Unathorized.");
+    }
+
+    const images = formData.getAll("images");
+    let validImages: File[] = [];
+
+    if (images.length === 0) {
+      console.log("No images attached");
+    } else {
+      validImages = images.filter(
+        (image): image is File =>
+          image instanceof File && image.name !== "" && image.size > 0
+      );
+
+      if (validImages.length === 0) {
+        console.log("No valid images found.");
+      } else {
+        console.log(validImages);
+      }
+    }
+
+    const formDate = formData.get("formDate") as string;
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const liveLink = formData.get("liveLink") as string;
+    const githubLink = formData.get("githubLink") as string;
+    const createdDate = new Date(formDate);
+    const techList = formData.get("techList") as string;
+    const techTags = techList.split("/").map((tech) => tech.trim());
+
+    const imageUrls = [];
+
+    if (validImages.length > 0) {
+      for (const imageFile of validImages) {
+        const imageBuffer = await imageFile.arrayBuffer();
+        const imageArray = Array.from(new Uint8Array(imageBuffer));
+        const imageData = Buffer.from(imageArray);
+
+        const imageBase64 = imageData.toString("base64");
+
+        if (imageBase64) {
+          const result = await cloudinary.uploader.upload(
+            `data:image/png;base64,${imageBase64}`,
+            {
+              folder: "filip-petrovic",
+            }
+          );
+
+          imageUrls.push(result.secure_url);
+        } else {
+          console.log("Base64 conversion failed.");
+        }
+      }
+    } else {
+      console.log("No images to upload.");
+    }
+
+    if (imageUrls.length > 0) {
+      for (const url of project.images!) {
+        deleteImageFromCloudinary(url);
+      }
+      project.images = imageUrls;
+    }
+    project.title = title;
+    project.description = description;
+    project.liveLink = liveLink;
+    project.githubLink = githubLink;
+    project.createdDate = createdDate;
+    project.techTags = techTags;
+
+    await project.save();
+
+    revalidatePath("/", "layout");
+  } catch (error: unknown) {
+    console.error(error);
+  }
+
+  redirect(`/projects`);
 };
