@@ -17,6 +17,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Filip Petrovic",
   description: "Filip Petrovic personnal portfolio.",
+  icons: {
+    icon: "/assets/images/logofp.webp",
+  },
 };
 
 export default function RootLayout({
