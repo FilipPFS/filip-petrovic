@@ -11,7 +11,7 @@ const MobileNav = ({ setMobileOpen }: Props) => {
     <nav className="sm:hidden block bg-[#08081e] fixed w-full top-0 pt-40 left-0 min-h-screen z-30  opacity-0 animate-fadein">
       <ul className="flex flex-col gap-8 px-6 w-full">
         {headerLinks.map((hLink) => (
-          <li className="w-full">
+          <li key={hLink.label} className="w-full">
             <Link
               onClick={() => setMobileOpen(false)}
               href={hLink.route}

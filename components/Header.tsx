@@ -23,7 +23,10 @@ const Header = () => {
         <nav className="bg-[#08081e] rounded-lg px-5 py-1 border border-light-blue-opacity hidden sm:block">
           <ul className="flex items-center gap-4">
             {headerLinks.map((hLink) => (
-              <li className="inline-block py-2 px-4 transition-all duration-300 ease-in-out hover:text-blue-50 hover:-translate-y-1.5">
+              <li
+                key={hLink.label}
+                className="inline-block py-2 px-4 transition-all duration-300 ease-in-out hover:text-blue-50 hover:-translate-y-1.5"
+              >
                 <Link href={hLink.route}>{hLink.label}</Link>
               </li>
             ))}
