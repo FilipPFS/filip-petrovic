@@ -18,6 +18,7 @@ export function Button({
   borderClassName,
   duration,
   className,
+  ariaLabel,
   ...otherProps
 }: {
   borderRadius?: string;
@@ -27,6 +28,7 @@ export function Button({
   borderClassName?: string;
   duration?: number;
   className?: string;
+  ariaLabel?: string;
   [key: string]: any;
 }) {
   return (
@@ -38,6 +40,7 @@ export function Button({
       style={{
         borderRadius: borderRadius,
       }}
+      aria-label={ariaLabel}
       {...otherProps}
     >
       <div
