@@ -3,6 +3,11 @@ import path from "path";
 import fs from "fs";
 import { FaXTwitter } from "react-icons/fa6";
 
+const codeFileContent = fs.readFileSync(
+  path.join(process.cwd(), "components/ui/fp-button.tsx"),
+  "utf-8"
+);
+
 const assets = [
   {
     test: true,
@@ -37,10 +42,7 @@ const Test = () => {
 
 export default Test;
     `,
-    readFile: fs.readFileSync(
-      path.join(`components/ui/fp-button.tsx`),
-      "utf-8"
-    ),
+    readFile: codeFileContent,
     installation: `
     npm i clsx
     npm i react-icons
