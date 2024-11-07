@@ -11,6 +11,10 @@ export const headerLinks = [
     label: "About",
     route: "/about",
   },
+  {
+    label: "Code",
+    route: "/code",
+  },
 ];
 
 export const footerLinks = [

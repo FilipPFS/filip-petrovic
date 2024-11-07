@@ -25,6 +25,7 @@ const config: Config = {
       },
       boxShadow: {
         "light-blue": "0 8px 30px rgba(173, 216, 230, 0.12)",
+        500: "0px 16px 24px rgba(0, 0, 0, 0.25), 0px -14px 48px rgba(40, 51, 111, 0.7)",
       },
       keyframes: {
         "fade-in": {
