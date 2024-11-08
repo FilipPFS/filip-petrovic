@@ -16,6 +16,7 @@ const CodeCard = ({ image, slug, title }: Props) => {
           <Image
             src={image}
             alt="componenet preview"
+            className="rounded-2xl"
             width={400}
             height={200}
           />

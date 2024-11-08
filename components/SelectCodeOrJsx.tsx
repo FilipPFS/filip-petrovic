@@ -19,7 +19,7 @@ const SelectCodeOrJsx = ({ component, readFile }: Props) => {
         <button
           className={clsx(
             "flex gap-2 items-center px-4 py-2 bg-gray-800 text-white font-semibold rounded-lg",
-            selected && "bg-blue-600"
+            selected && "bg-blue-700"
           )}
           onClick={() => setSelected(true)}
         >
@@ -29,7 +29,7 @@ const SelectCodeOrJsx = ({ component, readFile }: Props) => {
         <button
           className={clsx(
             "flex items-center gap-2 px-4 py-2 bg-gray-800 text-white font-semibold rounded-lg",
-            !selected && "bg-blue-600"
+            !selected && "bg-blue-700"
           )}
           onClick={() => setSelected(false)}
         >
