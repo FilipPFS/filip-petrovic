@@ -1,5 +1,4 @@
 import { addNewProject } from "@/lib/actions/project.actions";
-import React from "react";
 
 const CreateProject = () => {
   return (

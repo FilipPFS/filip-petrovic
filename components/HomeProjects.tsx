@@ -5,6 +5,7 @@ import ProjectCard from "./ProjectCard";
 
 const HomeProjects = async () => {
   const projects: IProject[] = await getRecentProjects();
+
   return (
     <div className="flex flex-col gap-8 items-center">
       <h1 className="text-3xl font-bold">Projets récents</h1>

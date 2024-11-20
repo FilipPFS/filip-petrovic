@@ -264,6 +264,4 @@ export const updateProject = async (formData: FormData) => {
   } catch (error: unknown) {
     console.error(error);
   }
-
-  redirect(`/projects`);
 };
