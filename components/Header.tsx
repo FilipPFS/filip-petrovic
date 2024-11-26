@@ -3,15 +3,40 @@
 import { headerLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MobileNav from "./MobileNav";
+import clsx from "clsx";
 
 const Header = () => {
   const [openMobile, setOpenMobile] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const handleScroll = () => {
+      clearTimeout(timeout); // Clear the timeout to avoid multiple triggers
+      timeout = setTimeout(() => {
+        setHasScrolled(window.scrollY > 40); // Adjust threshold as needed
+      }, 50); // Debounce delay in milliseconds
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      clearTimeout(timeout); // Clean up the timeout
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
-      <header className="sticky top-0 p-6 px-8 md:px-16 flex items-center justify-between h-[150px] z-50 bg-[#03030f] bg-opacity-15">
+      <header
+        className={clsx(
+          "sticky top-0 p-6 px-8 md:px-16 flex items-center justify-between z-50 transition-all duration-300 ease-in-out", // Smooth transitions
+          hasScrolled ? "h-[100px] bg-[#03030f]" : "h-[150px]"
+        )}
+      >
         <Link href={"/"} className="w-[120px]">
           <Image
             src={"/assets/images/logofp.webp"}
